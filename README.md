@@ -1,24 +1,12 @@
-# vue_shop
+# 使用vue及element-ui 练习的电商后台管理项目
 
-## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
+## 项目初始化
 ```
-npm run serve
+请先使用vue脚手架创建项目
+npm install，
 ```
-
-### Compiles and minifies for production
+## 本次项目不涉及API接口的设计，使用别人封装好的数据库及api接口文档
 ```
-npm run build
+项目文件中vue_api_server文件为 提供本次项目的数据支持
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
