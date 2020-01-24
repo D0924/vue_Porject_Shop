@@ -73,7 +73,6 @@ export default {
         // 1.1项目除了登入的API接口以外，全部必须需要登入才能访问
         // 1.2token只在当前网址打开期间有效，所以将token保存到sessionStorage中
         // 2.跳转到后台的home页面
-        console.log(res)
         window.sessionStorage.setItem('token', res.data.token)
         this.$router.push('/home')
       })
