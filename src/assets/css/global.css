@@ -21,3 +21,7 @@ body,
 .el-pagination {
   margin-top: 15px;
 }
+/* 解决那个级联选择器的高度过高的问题 */
+.el-cascader-menu {
+  height: 300px;
+}

@@ -323,7 +323,6 @@ export default {
       this.$refs.editFormRef.validate(async valid => {
         if (!valid) return this.$message.error('新增用户验证失败')
         const { data: res } = await this.$http.put('users/:' + id, {
-          id: id,
           email: this.editForm.email,
           mobile: this.editForm.mobile
         })

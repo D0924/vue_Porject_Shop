@@ -10,7 +10,7 @@
     <el-card>
       <el-row>
         <el-col>
-          <el-button type="primary">添加角色</el-button>
+          <el-button type="primary" @click="addRoles">添加角色</el-button>
         </el-col>
       </el-row>
       <!-- 表格区域 -->
@@ -127,6 +127,23 @@
         <el-button type="primary" @click="deleteDialogVisible">确 定</el-button>
       </span>
     </el-dialog>
+    <!-- 添加角色对话框 -->
+    <el-dialog title="添加角色" :visible.sync="addRoleDialogVisible" width="30%">
+      <div>
+        <el-form :model="addRoleForm" :rules="addRoleFormRules" ref="addRoleFormRel">
+          <el-form-item label="活动名称" prop="roleName">
+            <el-input v-model="addRoleForm.roleName"></el-input>
+          </el-form-item>
+          <el-form-item label="角色相关描述" prop="roleDesc">
+            <el-input v-model="addRoleForm.roleDesc"></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="addRoleDialog">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -158,7 +175,25 @@ export default {
       // 删除角色指定权限对话框显示与隐藏
       deleteRigthDialogVisible: false,
       // 点击删除角色暂存id
-      saverdeleteRigthId: ''
+      saverdeleteRigthId: '',
+      // 添加角色对话框显示与隐藏
+      addRoleDialogVisible: false,
+      // 添加角色暂存表单
+      addRoleForm: {
+        roleName: '',
+        roleDesc: ''
+      },
+      // 添加角色的验证对象
+      addRoleFormRules: {
+        roleName: [
+          { required: true, message: '请输入角色名称', trigger: 'blur' },
+          { min: 3, max: 7, message: '长度在 3 到 7 个字符', trigger: 'blur' }
+        ],
+        roleDesc: [
+          { required: true, message: '请输入当前角色描述', trigger: 'blur' },
+          { min: 3, max: 35, message: '长度在 3 到 35 个字符', trigger: 'blur' }
+        ]
+      }
     }
   },
   created() {
@@ -285,6 +320,22 @@ export default {
       this.$message.success('角色权限删除成功')
       this.deleteRigthDialogVisible = false
       this.getRolseList()
+    },
+    // 点击添加角色对话框
+    addRoles: function() {
+      this.addRoleDialogVisible = true
+    },
+    // 确认提交角色
+    addRoleDialog: function() {
+      // 验表单
+      this.$refs.addRoleFormRel.validate(async valid => {
+        if (valid === false) return
+        const { data: res } = await this.$http.post('roles', this.addRoleForm)
+        if (res.meta.status !== 201) return this.$message.error('角添加失败')
+        this.$message.success('角添加成功')
+        this.getRolseList()
+        this.addRoleDialogVisible = false
+      })
     }
   }
 }
