@@ -14,5 +14,10 @@ module.exports = {
   },
   parserOptions: {
     parser: 'babel-eslint'
+  },
+  globals: {
+    "document": true,
+    "localStorage": true,
+    "window": true
   }
 }
